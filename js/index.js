@@ -22,7 +22,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
   currentFolder = folder;
-  let a = await fetch(`/${currentFolder}/`);
+  let a = await fetch(`/${folder}/`);
   let response = await a.text();
 
   let div = document.createElement("div");
@@ -34,7 +34,7 @@ async function getSongs(folder) {
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split(`/${currentFolder}/`)[1]);
+      songs.push(element.href.split(`/${folder}/`)[1]);
     }
   }
 
@@ -100,7 +100,7 @@ async function displayAlbum() {
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
 
-    if (e.href.includes("/songs/")) {
+    if (e.href.includes("/songs/") && !e.href.includes(".htaccess")) {
       let folder = e.href.split("/").slice(-1)[0];
 
       //    get meta data
@@ -135,7 +135,7 @@ async function main() {
 
   // album display
 
-  displayAlbum();
+  await displayAlbum();
 
   //  event listener for play previos and next
   play.addEventListener("click", () => {
