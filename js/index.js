@@ -104,7 +104,7 @@ async function displayAlbum() {
       let folder = e.href.split("/").slice(-1)[0];
 
       //    get meta data
-      let a = await fetch(`/${folder}/info.json`);
+      let a = await fetch(`/songs/${folder}/info.json`);
       let response = await a.json();
 
       cardTop.innerHTML += `<div data-folder="${folder}" class="card border">
